@@ -63,6 +63,12 @@ html {
 body {
     /* Margin bottom by footer height */
     margin-bottom: 60px;
+    outline: none;
+}
+
+button:active, a:focus {
+    outline: 0;
+    border: none;
 }
 
 .footer {

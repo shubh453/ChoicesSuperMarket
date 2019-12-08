@@ -43,14 +43,14 @@ namespace ChoicesSuperMarket.Infrastructure.Persistence
 
             var products = new Product[]
             {
-                new Product("Apple", 1, Domain.Enums.EUnitOfMeasurement.Kilogram, 50, "", subCategories[0]),
-                new Product("Orange", 1, Domain.Enums.EUnitOfMeasurement.Kilogram, 80, "",subCategories[0]),
-                new Product("Potato", 1, Domain.Enums.EUnitOfMeasurement.Kilogram, 30, "",subCategories[1]),
-                new Product("Tomato", 1, Domain.Enums.EUnitOfMeasurement.Kilogram, 70, "",subCategories[1]),
-                new Product("Cow Milk", 1, Domain.Enums.EUnitOfMeasurement.Liter, 50, "",subCategories[2]),
-                new Product("Soy Milk", 1, Domain.Enums.EUnitOfMeasurement.Liter, 40, "",subCategories[2]),
-                new Product("Cheddar", 1, Domain.Enums.EUnitOfMeasurement.Kilogram, 50, "",subCategories[3]),
-                new Product("Gouda", 1, Domain.Enums.EUnitOfMeasurement.Kilogram, 80, "",subCategories[3]),
+                new Product("Apple", 1, Domain.Enums.EUnitOfMeasurement.Kilogram, 50, "/img/apples.jpg", subCategories[0]),
+                new Product("Orange", 1, Domain.Enums.EUnitOfMeasurement.Kilogram, 80, "/img/orange.jpg",subCategories[0]),
+                new Product("Potato", 1, Domain.Enums.EUnitOfMeasurement.Kilogram, 30, "/img/potato.jpg",subCategories[1]),
+                new Product("Tomato", 1, Domain.Enums.EUnitOfMeasurement.Kilogram, 70, "/img/tomato.jpg",subCategories[1]),
+                new Product("Cow Milk", 1, Domain.Enums.EUnitOfMeasurement.Liter, 50, "/img/cow-milk.jpg",subCategories[2]),
+                new Product("Soy Milk", 1, Domain.Enums.EUnitOfMeasurement.Liter, 40, "/img/soymilk.jpg",subCategories[2]),
+                new Product("Cheddar", 1, Domain.Enums.EUnitOfMeasurement.Kilogram, 50, "/img/cheddar.jpg",subCategories[3]),
+                new Product("Gouda", 1, Domain.Enums.EUnitOfMeasurement.Kilogram, 80, "/img/gouda.png",subCategories[3]),
             };
 
             var productDiscount = new ProductDiscount[]

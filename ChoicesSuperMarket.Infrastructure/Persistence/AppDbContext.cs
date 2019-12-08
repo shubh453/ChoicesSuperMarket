@@ -27,7 +27,9 @@ namespace ChoicesSuperMarket.Infrastructure.Persistence
         public DbSet<SubCategoryDiscount> SubCategoryDiscounts { get; set; }
         public DbSet<CategoryDiscount> CategoryDiscounts { get; set; }
         public DbSet<ProductDiscount> ProductDiscounts { get; set; }
-        
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
+
 
         #region SaveChanges
 

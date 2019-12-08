@@ -16,4 +16,9 @@
     <ProjectReference Include="..\ChoicesSuperMarket.Domain\ChoicesSuperMarket.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Invoice\Queries\GetInvoice\" />
+    <Folder Include="Orders\Queries\GetOrder\" />
+  </ItemGroup>
+
 </Project>

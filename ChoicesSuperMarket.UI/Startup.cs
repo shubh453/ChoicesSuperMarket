@@ -34,11 +34,12 @@ namespace ChoicesSuperMarket.UI
             services.AddHttpContextAccessor();
 
             services.AddHealthChecks()
-                .AddDbContextCheck<AppDbContext>();
+                    .AddDbContextCheck<AppDbContext>();
 
             services.AddRazorPages()
+                    .AddRazorRuntimeCompilation()
                     .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<IAppDbContext>())
-                .AddNewtonsoftJson();
+                    .AddNewtonsoftJson();
 
             services.Configure<ApiBehaviorOptions>(options =>
             {
@@ -64,7 +65,6 @@ namespace ChoicesSuperMarket.UI
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
-
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

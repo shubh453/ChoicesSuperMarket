@@ -1,10 +1,198 @@
 ﻿@page
+@using System.Globalization
+@using Microsoft.AspNetCore.Http
+
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
+    ViewData["User"] = Model.ProductResponse.CurrentCustomer.Name;
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<style>
+    .discount-marker {
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        background-color: #50C1E9;
+        position: absolute;
+        text-align: center;
+    }
+
+    .card-img-top {
+        width: 100% !important;
+        height: 250px;
+        object-fit: contain;
+    }
+
+    #error-message{
+        display:none;
+        position: sticky;
+        top: 10px;
+    }
+    .order-process{
+        width: 30%;
+        display: flex;
+        position: sticky;
+        bottom: 0;
+        right: 0;
+        justify-content: flex-end;
+        padding: 5px;
+        background-color: var(--white);
+        margin-left: 70%;
+    }
+
+    .order-process > button{
+        padding: 15px;
+        margin: 2.5%;
+        width: 45%;
+    }
+
+    .btn {
+        border-radius: 0!important;
+    }
+</style>
+
+<div class="alert alert-warning alert-dismissible fade show" role="alert" id="error-message"></div>
+<div class="d-flex flex-lg-row flex-wrap">
+    @foreach (var item in Model.ProductResponse.Products)
+    {
+        <div class="card" style="width: 23%; margin: calc(1%)">
+            <div>
+                <div class="discount-marker">
+                    <p>@item.DiscountTitle</p>
+                </div>
+                <img class="card-img-top" src="@item.PictureUri" alt="Image of @item.Name">
+            </div>
+
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h6 class="text-center">@item.Name</h6>
+                    </div>
+                    <div class="col-lg-6">
+                        @{
+                            decimal parsed = decimal.Parse(item.Price.ToString(), CultureInfo.InvariantCulture);
+                            CultureInfo hindi = new CultureInfo("hi-IN");
+                        }
+                        <p class="text-center">@string.Format(hindi, "{0:c}", parsed)</p>
+                    </div>
+                </div>
+                <div class="row float-right">
+                    <button class="btn btn-sm btn-primary m-1" onclick="removeOrderItem(@item.Id)"><i class="fa fa-minus-circle"></i></button>
+                    <span id="unit_count_@item.Id" class="unit-count">@item.Units</span>
+                    <button class="btn btn-sm btn-primary m-1" onclick="addOrderItem(@item.Id)"><i class="fa fa-plus-circle"></i></button>
+                </div>
+                <div id="message_@item.Id" style="display:none; color: green"></div>
+            </div>
+        </div>
+    }
 </div>
+<div class="order-process" style="display: none;">
+    <button class="btn btn-lg btn-outline-secondary" data-toggle="modal" data-target="#cancelModal">Cancel</button>
+    <button class="btn btn-lg btn-success" data-toggle="modal" data-target="#checkoutModal">Checkout</button>
+</div>
+<div class="modal fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="cancelModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h3>Are you sure to cancel the on-going order?</h3>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-outline-danger" onclick="cancel()">Yes, Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="checkoutModal" tabindex="-1" role="dialog" aria-labelledby="checkoutModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body" >
+                <h6>Order Summary</h6>
+                <div id="order-summary"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-outline-success" onclick="checkout()">Proceed to billing</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    const addOrderItem = function (productId) {
+        let units = parseInt($('#unit_count_' + productId).html())
+        let unitCounts = $('.unit-count').each(ele => ele.html())
+        $.ajax({
+            url: '/?handler=AddOrder',
+            data: {
+                ProductId: productId,
+                CustomerId: @Model.ProductResponse.CurrentCustomer.Id,
+            },
+            contentType: 'application/json; charset=utf-8',
+            success: function (result) {
+                if (result.isAdded) {
+                    $('#unit_count_' + productId).html(units + 1);
+                    $('#message_' + productId).show().html("Added");
+                    setTimeout(() => { $('#message_' + productId).hide(); }, 2000)
+                } else {
+                     $('#message_' + productId).css('color', 'red').show().html("Error");
+                     setTimeout(() => { $('#message_' + productId).hide(); }, 2000)
+                }
+            },
+            error: function (error) {
+                $('#message_' + productId).css('color', 'red').show().html("Error");
+                setTimeout(() => { $('#message_' + productId).hide(); }, 2000)
+            }
+        });
+        return false;
+    };
+
+    const removeOrderItem = function (productId) {
+        var units = parseInt($('#unit_count_' + productId).html());
+        if (units === 0)
+            return;
+
+        $.ajax({
+            url: '/?handler=RemoveOrder',
+            data: {
+                ProductId: productId,
+                CustomerId: @Model.ProductResponse.CurrentCustomer.Id,
+            },
+            contentType: 'application/json; charset=utf-8',
+            success: function (result) {
+                if (result.isRemoved) {
+                    $('#unit_count_' + productId).html(units - 1);
+                    $('#message_' + productId).show().html("Removed");
+                    setTimeout(() => { $('#message_' + productId).hide(); }, 2000)
+                } else {
+                     $('#message_' + productId).css('color', 'red').show().html("Error");
+                     setTimeout(() => { $('#message_' + productId).hide(); }, 2000)
+                }
+            },
+            error: function (error) {
+                $('#message_' + productId).css('color', 'red').show().html("Error");
+                setTimeout(() => { $('#message_' + productId).hide(); }, 2000)
+            }
+        });
+        return false;
+    }
+
+    const checkout = () => {
+        const userId = @Model.ProductResponse.CurrentCustomer.Id;
+
+         $.ajax({
+            url: '/?handler=Checkout',
+             data: userId,
+         }).done((result) => { console.log(result); });
+        return false;
+    };
+
+    const cancel = () => {
+        const userId = @Model.ProductResponse.CurrentCustomer.Id;
+
+         $.ajax({
+            url: '/?handler=Checkout',
+             data: userId,
+         }).done((result) => { console.log(result); });
+    };
+</script>

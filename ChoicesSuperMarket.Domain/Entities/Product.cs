@@ -10,7 +10,7 @@ namespace ChoicesSuperMarket.Domain.Entities
         public string Name { get; private set; }
         public short QuantityInPackage { get; private set; }
         public EUnitOfMeasurement UnitOfMeasurement { get; private set; }
-        public double Price { get; private set; }
+        public decimal Price { get; private set; }
         public string PictureUri { get; private set; }
         public int SubCategoryId { get; private set; }
         public SubCategory SubCategory { get; private set; }
@@ -20,7 +20,7 @@ namespace ChoicesSuperMarket.Domain.Entities
             string name,
             short quantityInPackage,
             EUnitOfMeasurement unitOfMeasurement,
-            double price,
+            decimal price,
             string pictureUri,
             SubCategory subCategory)
         {
