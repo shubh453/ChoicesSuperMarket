@@ -1,5 +1,3 @@
-using System;
-
 namespace ChoicesSuperMarket.Presentation.Models
 {
     public class ErrorViewModel

@@ -1,5 +1,4 @@
 ﻿using ChoicesSuperMarket.Domain.Abstract;
-using System;
 using System.Collections.Generic;
 
 namespace ChoicesSuperMarket.Domain.Entities

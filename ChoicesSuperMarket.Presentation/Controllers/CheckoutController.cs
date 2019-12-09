@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using ChoicesSuperMarket.Application.Orders.Commands.CancelOrder;
+﻿using ChoicesSuperMarket.Application.Orders.Commands.CancelOrder;
 using ChoicesSuperMarket.Application.Orders.Commands.PlaceOrder;
 using ChoicesSuperMarket.Presentation.Abstract;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace ChoicesSuperMarket.Presentation.Controllers
 {
@@ -21,7 +18,7 @@ namespace ChoicesSuperMarket.Presentation.Controllers
         public async Task<IActionResult> Complete(CancelOrderCommand command)
         {
             await Mediator.Send(command);
-            return RedirectToAction("Index","Home", new { subCategoryId = 0});
+            return RedirectToAction("Index", "Home", new { subCategoryId = 0 });
         }
     }
 }

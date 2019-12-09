@@ -1,7 +1,5 @@
 ﻿using ChoicesSuperMarket.Domain.Abstract;
 using ChoicesSuperMarket.Domain.Enums;
-using System;
-using System.Collections.Generic;
 
 namespace ChoicesSuperMarket.Domain.Entities
 {
@@ -35,6 +33,5 @@ namespace ChoicesSuperMarket.Domain.Entities
         protected Product()
         {
         }
-
     }
 }

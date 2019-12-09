@@ -3,9 +3,7 @@ using ChoicesSuperMarket.Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -24,13 +22,14 @@ namespace ChoicesSuperMarket.Application.Orders.Commands.AddOrderItem
             {
                 _context = context;
             }
+
             public async Task<AddOrderItemResponse> Handle(AddOrderItemCommand request, CancellationToken cancellationToken)
             {
                 try
                 {
                     Order order = null;
                     order = await _context.Orders.Where(o => o.BuyerId == request.CustomerId && o.IsActive).Include(o => o.OrderItems).FirstOrDefaultAsync();
-                    if(order == null)
+                    if (order == null)
                     {
                         order = new Order(request.CustomerId, DateTimeOffset.Now);
                     }
@@ -40,7 +39,7 @@ namespace ChoicesSuperMarket.Application.Orders.Commands.AddOrderItem
                     {
                         existingOrderItemInOrder.AddUnit();
                         _context.OrderItems.Update(existingOrderItemInOrder);
-                    } 
+                    }
                     else
                     {
                         var product = await _context.Products.Where(p => p.Id == request.ProductId).FirstOrDefaultAsync();

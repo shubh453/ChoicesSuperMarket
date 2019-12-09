@@ -1,7 +1,5 @@
 ﻿using ChoicesSuperMarket.Domain.Abstract;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ChoicesSuperMarket.Domain.Entities
 {
@@ -12,10 +10,11 @@ namespace ChoicesSuperMarket.Domain.Entities
         public Product Product { get; private set; }
         public int OrderId { get; private set; }
         public Order Order { get; private set; }
+
         private OrderItem()
         { }
 
-        public OrderItem(Product product, Order order ,int units)
+        public OrderItem(Product product, Order order, int units)
         {
             Product = product;
             Order = order;
@@ -26,6 +25,7 @@ namespace ChoicesSuperMarket.Domain.Entities
         {
             Units++;
         }
+
         public void RemoveUnit()
         {
             if (Units == 0)

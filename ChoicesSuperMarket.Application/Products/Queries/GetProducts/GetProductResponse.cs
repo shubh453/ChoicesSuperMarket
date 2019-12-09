@@ -1,12 +1,10 @@
 ﻿using ChoicesSuperMarket.Application.Common.Abstract;
 using ChoicesSuperMarket.Domain.Entities;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace ChoicesSuperMarket.Application.Products.Queries.GetProducts
 {
-    public class GetProductResponse: BaseResponse
+    public class GetProductResponse : BaseResponse
     {
         public ICollection<ProductVM> ProductList { get; set; }
         public Customer CurrentCustomer { get; set; }

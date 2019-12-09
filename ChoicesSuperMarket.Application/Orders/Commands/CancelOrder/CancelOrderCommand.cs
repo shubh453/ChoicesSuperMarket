@@ -2,9 +2,7 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -13,7 +11,7 @@ namespace ChoicesSuperMarket.Application.Orders.Commands.CancelOrder
     public class CancelOrderCommand : IRequest<CancelOrderResponse>
     {
         public int UserId { get; set; }
-       
+
         public class CancelOrderCommandHandler : IRequestHandler<CancelOrderCommand, CancelOrderResponse>
         {
             private readonly IAppDbContext context;
@@ -29,11 +27,11 @@ namespace ChoicesSuperMarket.Application.Orders.Commands.CancelOrder
                 {
                     var ongoingOrder = await context.Orders.Where(o => o.IsActive && o.BuyerId == request.UserId).FirstOrDefaultAsync();
 
-                    if(ongoingOrder != null)
+                    if (ongoingOrder != null)
                     {
                         ongoingOrder.MarkInactive();
                         await context.SaveChangesAsync(cancellationToken);
-                    } 
+                    }
                     else
                     {
                         return new CancelOrderResponse { Exception = null, IsCanceled = false, Message = $"There is no ongoing order for the current customer.", Success = true };

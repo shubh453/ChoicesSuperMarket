@@ -1,8 +1,5 @@
 ﻿using ChoicesSuperMarket.Domain.Entities;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ChoicesSuperMarket.Infrastructure.Persistence
@@ -11,8 +8,7 @@ namespace ChoicesSuperMarket.Infrastructure.Persistence
     {
         public static async Task SeedAsync(AppDbContext context)
         {
-
-            if(context.Customers.Any()) { return; }
+            if (context.Customers.Any()) { return; }
 
             var categories = new Category[]
             {
@@ -65,7 +61,6 @@ namespace ChoicesSuperMarket.Infrastructure.Persistence
                 new ProductDiscount("10% off",10, products[7])
             };
             var customer = new Customer("Anish Kumar", "anishkumar@xyz.com");
-
 
             await context.Categories.AddRangeAsync(categories);
             await context.CategoryDiscounts.AddRangeAsync(categoriesDiscount);

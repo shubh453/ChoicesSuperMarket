@@ -5,8 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="9.0.0" />
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="FluentValidation" Version="8.5.1" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.0.1" />
@@ -17,7 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Invoice\Queries\GetInvoice\" />
     <Folder Include="Orders\Queries\GetOrder\" />
   </ItemGroup>
 

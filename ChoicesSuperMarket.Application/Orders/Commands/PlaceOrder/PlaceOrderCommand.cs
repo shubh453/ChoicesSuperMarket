@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -36,7 +35,7 @@ namespace ChoicesSuperMarket.Application.Orders.Commands.PlaceOrder
                     var ongoingOrder = await context.Orders.Where(o => o.IsActive && o.BuyerId == request.UserId).Include(o => o.OrderItems).ThenInclude(oi => oi.Product).FirstOrDefaultAsync();
                     var customer = await context.Customers.Where(c => c.Id == request.UserId).FirstOrDefaultAsync();
 
-                    if(ongoingOrder != null)
+                    if (ongoingOrder != null)
                     {
                         foreach (var item in ongoingOrder.OrderItems)
                         {
@@ -54,23 +53,22 @@ namespace ChoicesSuperMarket.Application.Orders.Commands.PlaceOrder
 
                             if (product.ProductDiscount.DiscountType == Domain.Enums.EDiscountType.PercentDiscount)
                             {
-
                                 var percentageDiscount = Math.Max(Math.Max(product.ProductDiscount.DiscountPercentage,
                                                                   product.SubCategory.SubCategoryDiscount.DiscountPercentage),
                                                                   product.SubCategory.Category.CategoryDiscount.DiscountPercentage);
 
                                 discount = (price * percentageDiscount) / 100;
                                 discountedPrice = price - discount;
-                            } 
+                            }
                             else
                             {
                                 var units = item.Units;
                                 var disUnit = product.ProductDiscount.DiscountOnUnit;
                                 var freeUnit = product.ProductDiscount.FreeUnit;
-                                
-                                while(units > 0)
+
+                                while (units > 0)
                                 {
-                                    if(units > disUnit)
+                                    if (units > disUnit)
                                         discount += freeUnit * item.Product.Price;
                                     discountedPrice += Math.Min(units, disUnit) * item.Product.Price;
                                     units -= freeUnit + disUnit;
@@ -81,8 +79,8 @@ namespace ChoicesSuperMarket.Application.Orders.Commands.PlaceOrder
                             totalDiscount += discount;
                             totalAfterDiscount += discountedPrice;
 
-                            placedProductVMs.Add(new PlacedProductVM 
-                            { 
+                            placedProductVMs.Add(new PlacedProductVM
+                            {
                                 Quantity = item.Units,
                                 DiscountAmount = discount,
                                 DiscountedPrice = discountedPrice,
@@ -103,7 +101,6 @@ namespace ChoicesSuperMarket.Application.Orders.Commands.PlaceOrder
                         PlacedProducts = placedProductVMs,
                         CurrentCustomer = customer
                     };
-
                 }
                 catch (Exception ex)
                 {

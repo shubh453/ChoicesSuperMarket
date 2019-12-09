@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using ChoicesSuperMarket.Presentation.Models;
-using ChoicesSuperMarket.Presentation.Abstract;
-using System.Security.Claims;
-using ChoicesSuperMarket.Application.Products.Queries.GetProducts;
+﻿using ChoicesSuperMarket.Application.Orders.Commands.AddOrderItem;
 using ChoicesSuperMarket.Application.Orders.Commands.CancelOrder;
-using ChoicesSuperMarket.Application.Orders.Commands.AddOrderItem;
 using ChoicesSuperMarket.Application.Orders.Commands.RemoveOrderItem;
 using ChoicesSuperMarket.Application.Products.Queries.GetProductCategories;
+using ChoicesSuperMarket.Application.Products.Queries.GetProducts;
+using ChoicesSuperMarket.Presentation.Abstract;
+using ChoicesSuperMarket.Presentation.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace ChoicesSuperMarket.Presentation.Controllers
 {
@@ -56,7 +54,7 @@ namespace ChoicesSuperMarket.Presentation.Controllers
         {
             return new JsonResult(await Mediator.Send(removeOrder));
         }
-        
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

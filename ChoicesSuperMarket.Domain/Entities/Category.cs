@@ -1,5 +1,4 @@
 ﻿using ChoicesSuperMarket.Domain.Abstract;
-using System;
 using System.Collections.Generic;
 
 namespace ChoicesSuperMarket.Domain.Entities
@@ -40,6 +39,5 @@ namespace ChoicesSuperMarket.Domain.Entities
         {
             this.subCategories.Remove(this.subCategories.Find(x => x.Id == subCategoryId));
         }
-
     }
 }

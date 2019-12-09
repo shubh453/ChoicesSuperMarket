@@ -1,9 +1,6 @@
 ﻿using ChoicesSuperMarket.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ChoicesSuperMarket.Infrastructure.Persistence.Configuration
 {
@@ -22,7 +19,6 @@ namespace ChoicesSuperMarket.Infrastructure.Persistence.Configuration
             builder.HasOne(c => c.Category)
                .WithMany(d => d.SubCategories)
                .HasForeignKey(c => c.CategoryId);
-
         }
     }
 }

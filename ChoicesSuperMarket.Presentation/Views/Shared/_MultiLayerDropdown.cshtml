@@ -1,47 +1,45 @@
 ﻿@model ChoicesSuperMarket.Application.Products.Queries.GetProductCategories.GetCategoiesResponse
-    <nav class="navbar navbar-expand-lg navbar-light bg-white py-3 shadow-sm">
-        <div class="container">
-            <a href="#" class="navbar-brand font-weight-bold">Filter Product</a>
-            <button type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbars" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+<nav class="navbar navbar-expand-lg navbar-light bg-white py-3 shadow-sm">
+    <div class="container">
+        <a href="#" class="navbar-brand font-weight-bold">Filter Product</a>
+        <button type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbars" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-            <div id="navbarContent" class="collapse navbar-collapse">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item dropdown">
-                        <a id="dropdownMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Category</a>
-                        <ul aria-labelledby="dropdownMenu1" class="dropdown-menu border-0 shadow">
-                            <li><a href="@Url.Action("Index","Home", new { subcategoryId = 0})" class="dropdown-item">All Products</a></li>
-                            <li class="dropdown-divider"></li>
-                            @foreach (var category in Model.Categories)
+        <div id="navbarContent" class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item dropdown">
+                    <a id="dropdownMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Category</a>
+                    <ul aria-labelledby="dropdownMenu1" class="dropdown-menu border-0 shadow">
+                        <li><a href="@Url.Action("Index","Home", new { subcategoryId = 0})" class="dropdown-item">All Products</a></li>
+                        <li class="dropdown-divider"></li>
+                        @foreach (var category in Model.Categories)
+                        {
+                            if (category.SubCategories.Count > 0)
                             {
-                                if (category.SubCategories.Count > 0)
-                                {
-                                    <li class="dropdown-submenu">
-                                        <a id="categorydropdown_@category.Id" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">
-                                            @category.Name
-                                            <span class="float-right text-success">@Convert.ToInt32(category.Discount)% off</span>
-                                        </a>
-                                        <ul aria-labelledby="categorydropdown_@category.Id" class="dropdown-menu border-0 shadow">
-                                            @foreach (var subcategory in category.SubCategories)
-                                            {
-                                                <li><a href="@Url.Action("Index","Home", new { subcategoryId = subcategory.Id})" class="dropdown-item">@subcategory.Name <span class="float-right text-success">@Convert.ToInt32(subcategory.Discount)% off</span></a></li>
-                                            }
-
-                                        </ul>
-                                    </li>
-                                }
-                                else
-                                {
-                                    <li><a href="#" class="dropdown-item">@category.Name</a></li>
-                                }
-
-                                <li class="dropdown-divider"></li>
+                                <li class="dropdown-submenu">
+                                    <a id="categorydropdown_@category.Id" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">
+                                        @category.Name
+                                        <span class="float-right text-success">@Convert.ToInt32(category.Discount)% off</span>
+                                    </a>
+                                    <ul aria-labelledby="categorydropdown_@category.Id" class="dropdown-menu border-0 shadow">
+                                        @foreach (var subcategory in category.SubCategories)
+                                        {
+                                            <li><a href="@Url.Action("Index","Home", new { subcategoryId = subcategory.Id})" class="dropdown-item">@subcategory.Name <span class="float-right text-success">@Convert.ToInt32(subcategory.Discount)% off</span></a></li>
+                                        }
+                                    </ul>
+                                </li>
                             }
-                        </ul>
-                    </li>
-                  
-                </ul>
-            </div>
+                            else
+                            {
+                                <li><a href="#" class="dropdown-item">@category.Name</a></li>
+                            }
+
+                            <li class="dropdown-divider"></li>
+                        }
+                    </ul>
+                </li>
+            </ul>
         </div>
-    </nav>
+    </div>
+</nav>

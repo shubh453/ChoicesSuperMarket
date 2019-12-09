@@ -1,8 +1,5 @@
 ﻿using ChoicesSuperMarket.Domain.Abstract;
 using ChoicesSuperMarket.Domain.Enums;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ChoicesSuperMarket.Domain.Entities
 {
@@ -16,7 +13,6 @@ namespace ChoicesSuperMarket.Domain.Entities
 
         public int SubCategoryId { get; private set; }
         public SubCategory SubCategory { get; private set; }
-
 
         public SubCategoryDiscount(
             string name,

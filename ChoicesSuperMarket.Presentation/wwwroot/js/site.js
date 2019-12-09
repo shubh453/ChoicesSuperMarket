@@ -16,14 +16,12 @@ $(function () {
 
         $(this).siblings().toggleClass("show");
 
-
         if (!$(this).next().hasClass('show')) {
             $(this).parents('.dropdown-menu').first().find('.show').removeClass("show");
         }
         $(this).parents('li.nav-item.dropdown.show').on('hidden.bs.dropdown', function (e) {
             $('.dropdown-submenu .show').removeClass("show");
         });
-
     });
 });
 
@@ -96,7 +94,6 @@ const removeOrderItem = function (productId, userId) {
 }
 
 const cancel = (customerId) => {
-
     $.ajax({
         url: 'Home/CancelOrder',
         data: { userId: customerId },
@@ -110,7 +107,6 @@ const cancel = (customerId) => {
                     $('#error-message').hide();
                 }, 2000);
             }
-
         },
         error: function (error) {
             $('#error-message').show().html(error.message);

@@ -1,8 +1,5 @@
 ﻿using ChoicesSuperMarket.Domain.Abstract;
 using ChoicesSuperMarket.Domain.Enums;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ChoicesSuperMarket.Domain.Entities
 {
@@ -41,6 +38,8 @@ namespace ChoicesSuperMarket.Domain.Entities
             Category = category;
         }
 
-        protected CategoryDiscount() { }
+        protected CategoryDiscount()
+        {
+        }
     }
 }

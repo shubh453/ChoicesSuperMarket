@@ -1,11 +1,10 @@
 ﻿using ChoicesSuperMarket.Domain.Abstract;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace ChoicesSuperMarket.Domain.Entities
 {
-    public class Order: AuditableEntity
+    public class Order : AuditableEntity
     {
         public int BuyerId { get; private set; }
         public bool IsActive { get; private set; }
@@ -13,6 +12,7 @@ namespace ChoicesSuperMarket.Domain.Entities
 
         private readonly List<OrderItem> _orderItems = new List<OrderItem>();
         public IReadOnlyCollection<OrderItem> OrderItems => _orderItems.AsReadOnly();
+
         public decimal Total()
         {
             var total = 0m;
@@ -38,6 +38,5 @@ namespace ChoicesSuperMarket.Domain.Entities
         {
             IsActive = false;
         }
-
     }
 }

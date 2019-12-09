@@ -1,7 +1,4 @@
-﻿using ChoicesSuperMarket.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace ChoicesSuperMarket.Application.Products.Queries.GetProductCategories
 {
@@ -17,6 +14,7 @@ namespace ChoicesSuperMarket.Application.Products.Queries.GetProductCategories
         public decimal Discount { get; set; }
         public ICollection<SubCategoryVM> SubCategories { get; set; }
     }
+
     public class SubCategoryVM
     {
         public int Id { get; set; }

@@ -11,9 +11,10 @@
     <table class="table table-hover table-borderless col-8" style="margin: auto">
         <thead>
             <tr class="row">
-                <th class="col-8">Item</th>
+                <th class="col-6">Item</th>
                 <th class="col-2">Quantity</th>
-                <th class="col-2">Amount</th>
+                <th class="col-2">Total Amount</th>
+                <th class="col-2">Discounted Amount</th>
             </tr>
         </thead>
         <tbody>
@@ -25,9 +26,10 @@
             @foreach (var product in Model.PlacedProducts)
             {
                 <tr class="row">
-                    <td class="col-8"><p>@product.ProductName</p></td>
+                    <td class="col-6"><p>@product.ProductName</p></td>
                     <td class="col-2"><p>@product.Quantity @product.UnitOfMeasurement</p></td>
-                    <td class="col-2"><p>@string.Format(hindi, "{0:c}", decimal.Parse(product.Price.ToString(), CultureInfo.InvariantCulture))</p></td>
+                    <td class="col-2"><p>@string.Format(hindi, "{0:c}", decimal.Parse(product.Price.ToString(), CultureInfo.InvariantCulture))</p>
+                    </td> <td class="col-2"><p>@string.Format(hindi, "{0:c}", decimal.Parse(product.DiscountedPrice.ToString(), CultureInfo.InvariantCulture))</p></td>
                 </tr>
             }
         </tbody>

@@ -1,9 +1,6 @@
 ﻿using ChoicesSuperMarket.Application.Common.Abstract;
 using ChoicesSuperMarket.Domain.Entities;
-using ChoicesSuperMarket.Domain.Enums;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace ChoicesSuperMarket.Application.Orders.Commands.PlaceOrder
 {
@@ -24,6 +21,5 @@ namespace ChoicesSuperMarket.Application.Orders.Commands.PlaceOrder
         public decimal Price { get; set; }
         public decimal DiscountedPrice { get; set; }
         public decimal DiscountAmount { get; set; }
-
     }
 }

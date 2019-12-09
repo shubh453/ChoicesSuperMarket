@@ -1,12 +1,9 @@
 ﻿using ChoicesSuperMarket.Domain.Abstract;
 using ChoicesSuperMarket.Domain.Enums;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ChoicesSuperMarket.Domain.Entities
 {
-    public class ProductDiscount: AuditableEntity
+    public class ProductDiscount : AuditableEntity
     {
         public string Name { get; set; }
         public EDiscountType DiscountType { get; private set; }

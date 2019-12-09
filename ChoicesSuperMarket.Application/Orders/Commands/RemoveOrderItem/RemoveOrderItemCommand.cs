@@ -3,9 +3,7 @@ using ChoicesSuperMarket.Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -15,6 +13,7 @@ namespace ChoicesSuperMarket.Application.Orders.Commands.RemoveOrderItem
     {
         public int CustomerId { get; set; }
         public int ProductId { get; set; }
+
         public class RemoveOrderCommandHandler : IRequestHandler<RemoveOrderItemCommand, RemoveOrderItemResponse>
         {
             private readonly IAppDbContext _context;
@@ -23,6 +22,7 @@ namespace ChoicesSuperMarket.Application.Orders.Commands.RemoveOrderItem
             {
                 _context = context;
             }
+
             public async Task<RemoveOrderItemResponse> Handle(RemoveOrderItemCommand request, CancellationToken cancellationToken)
             {
                 try

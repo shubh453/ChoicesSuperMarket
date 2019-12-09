@@ -3,7 +3,6 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -24,7 +23,6 @@ namespace ChoicesSuperMarket.Application.Products.Queries.GetProductCategories
             {
                 try
                 {
-
                     var categories = await context.Categories
                                                   .Include(c => c.CategoryDiscount)
                                                   .Include(c => c.SubCategories)
@@ -36,7 +34,8 @@ namespace ChoicesSuperMarket.Application.Products.Queries.GetProductCategories
 
                         foreach (var subcategory in category.SubCategories)
                         {
-                            subcategoryVM.Add(new SubCategoryVM { 
+                            subcategoryVM.Add(new SubCategoryVM
+                            {
                                 Id = subcategory.Id,
                                 Name = subcategory.Name,
                                 Discount = subcategory.SubCategoryDiscount.DiscountPercentage
@@ -53,7 +52,6 @@ namespace ChoicesSuperMarket.Application.Products.Queries.GetProductCategories
                     }
 
                     return new GetCategoiesResponse { Categories = categoryVM };
-
                 }
                 catch (Exception)
                 {

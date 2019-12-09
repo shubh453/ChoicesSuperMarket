@@ -30,7 +30,6 @@ namespace ChoicesSuperMarket.Infrastructure.Persistence
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
 
-
         #region SaveChanges
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken)

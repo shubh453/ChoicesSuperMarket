@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using ChoicesSuperMarket.Application.Common.Behaviour;
+﻿using ChoicesSuperMarket.Application.Common.Behaviour;
 using ChoicesSuperMarket.Application.Interfaces;
 using ChoicesSuperMarket.Domain.Entities;
 using MediatR;
@@ -7,7 +6,6 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -21,6 +19,7 @@ namespace ChoicesSuperMarket.Application.Products.Queries.GetProducts
         {
             SubCategoryId = subCategoryId;
         }
+
         public class GetProductsQueryHanlder : IRequestHandler<GetProductsQuery, GetProductResponse>
         {
             private readonly IAppDbContext _context;
@@ -43,7 +42,7 @@ namespace ChoicesSuperMarket.Application.Products.Queries.GetProducts
                     if (request.SubCategoryId == 0)
                     {
                         products = await _context.Products.Include(p => p.ProductDiscount).ToListAsync();
-                    } 
+                    }
                     else
                     {
                         products = await _context.Products
@@ -54,7 +53,7 @@ namespace ChoicesSuperMarket.Application.Products.Queries.GetProducts
 
                     if (products == null)
                     {
-                        return new GetProductResponse { Message = $"Product not found. Total Count: 0", ProductList = null, Success = true,CurrentCustomer = user };
+                        return new GetProductResponse { Message = $"Product not found. Total Count: 0", ProductList = null, Success = true, CurrentCustomer = user };
                     }
 
                     var productVM = new List<ProductVM>();
@@ -62,7 +61,7 @@ namespace ChoicesSuperMarket.Application.Products.Queries.GetProducts
                     foreach (var product in products)
                     {
                         var units = 0;
-                        if(ongoingOrder != null)
+                        if (ongoingOrder != null)
                         {
                             units = ongoingOrder.OrderItems.Where(oi => oi.ProductId == product.Id).Select(oi => oi.Units).FirstOrDefault();
                         }
@@ -78,7 +77,7 @@ namespace ChoicesSuperMarket.Application.Products.Queries.GetProducts
                             UnitOfMeasurement = product.UnitOfMeasurement.GetDescription()
                         });
                     }
-                    if(ongoingOrder != null)
+                    if (ongoingOrder != null)
                         return new GetProductResponse { Message = $"There is already an order in progress. Please Continue.", ProductList = productVM, Success = true, CurrentCustomer = user };
 
                     return new GetProductResponse { Message = $"Products found. Total Count: {products.Count}", ProductList = productVM, Success = true, CurrentCustomer = user };
@@ -87,7 +86,6 @@ namespace ChoicesSuperMarket.Application.Products.Queries.GetProducts
                 {
                     return new GetProductResponse { Message = $"Error Occurred while retriving products.", Exception = ex, Success = false, CurrentCustomer = null };
                 }
-                
             }
         }
     }

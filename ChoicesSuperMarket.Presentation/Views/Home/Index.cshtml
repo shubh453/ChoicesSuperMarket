@@ -6,7 +6,6 @@
     ViewData["User"] = Model.Products.CurrentCustomer.Name;
 }
 
-
 <div class="alert alert-warning alert-dismissible fade show" role="alert" id="error-message"></div>
 <div class="row">
     @{await Html.RenderPartialAsync("~/Views/Shared/_MultiLayerDropdown.cshtml", Model.Categories);}
@@ -59,7 +58,6 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-outline-danger" onclick="cancel(@Model.Products.CurrentCustomer.Id)">Yes, Cancel</button>
-
             </div>
         </div>
     </div>

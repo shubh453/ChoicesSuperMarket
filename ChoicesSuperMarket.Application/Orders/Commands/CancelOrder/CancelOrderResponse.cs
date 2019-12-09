@@ -2,7 +2,7 @@
 
 namespace ChoicesSuperMarket.Application.Orders.Commands.CancelOrder
 {
-    public class CancelOrderResponse: BaseResponse
+    public class CancelOrderResponse : BaseResponse
     {
         public bool IsCanceled { get; set; }
     }
