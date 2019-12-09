@@ -8,7 +8,7 @@ namespace ChoicesSuperMarket.Application.Products.Queries.GetProducts
 {
     public class GetProductResponse: BaseResponse
     {
-        public ICollection<ProductVM> Products { get; set; }
+        public ICollection<ProductVM> ProductList { get; set; }
         public Customer CurrentCustomer { get; set; }
     }
 
@@ -20,5 +20,6 @@ namespace ChoicesSuperMarket.Application.Products.Queries.GetProducts
         public int Units { get; set; }
         public string PictureUri { get; set; }
         public string DiscountTitle { get; set; }
+        public string UnitOfMeasurement { get; set; }
     }
 }

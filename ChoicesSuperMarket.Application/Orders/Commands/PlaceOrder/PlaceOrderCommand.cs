@@ -1,4 +1,5 @@
-﻿using ChoicesSuperMarket.Application.Interfaces;
+﻿using ChoicesSuperMarket.Application.Common.Behaviour;
+using ChoicesSuperMarket.Application.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -14,10 +15,6 @@ namespace ChoicesSuperMarket.Application.Orders.Commands.PlaceOrder
     {
         public int UserId { get; set; }
 
-        public PlaceOrderCommand(int userId)
-        {
-            UserId = userId;
-        }
         public class PlaceOrderCommandHandler : IRequestHandler<PlaceOrderCommand, PlaceOrderResponse>
         {
             private readonly IAppDbContext context;
@@ -36,21 +33,21 @@ namespace ChoicesSuperMarket.Application.Orders.Commands.PlaceOrder
                     decimal totalAfterDiscount = 0m;
                     decimal total = 0m;
 
-                    var ongoingOrder = await context.Orders.Where(o => o.IsActive && o.BuyerId == request.UserId).Include(o => o.OrderItems).FirstOrDefaultAsync();
+                    var ongoingOrder = await context.Orders.Where(o => o.IsActive && o.BuyerId == request.UserId).Include(o => o.OrderItems).ThenInclude(oi => oi.Product).FirstOrDefaultAsync();
+                    var customer = await context.Customers.Where(c => c.Id == request.UserId).FirstOrDefaultAsync();
 
-                    
                     if(ongoingOrder != null)
                     {
                         foreach (var item in ongoingOrder.OrderItems)
                         {
                             var product = await context.Products.Where(p => p.Id == item.Product.Id)
-                                                        .Include(p => p.ProductDiscount)
-                                                        .Include(p => p.SubCategory)
-                                                        .ThenInclude(sc => sc.SubCategoryDiscount)
-                                                        .Include(sc => sc.SubCategory)
-                                                        .ThenInclude(sc => sc.Category)
-                                                        .ThenInclude(c => c.CategoryDiscount)
-                                                        .FirstOrDefaultAsync();
+                                        .Include(p => p.ProductDiscount)
+                                        .Include(p => p.SubCategory)
+                                        .ThenInclude(sc => sc.SubCategoryDiscount)
+                                        .Include(sc => sc.SubCategory)
+                                        .ThenInclude(sc => sc.Category)
+                                        .ThenInclude(c => c.CategoryDiscount)
+                                        .FirstOrDefaultAsync();
                             var discount = 0m;
                             var discountedPrice = 0m;
                             var price = item.Product.Price * item.Units;
@@ -62,7 +59,7 @@ namespace ChoicesSuperMarket.Application.Orders.Commands.PlaceOrder
                                                                   product.SubCategory.SubCategoryDiscount.DiscountPercentage),
                                                                   product.SubCategory.Category.CategoryDiscount.DiscountPercentage);
 
-                                discount = (price * 100) / percentageDiscount;
+                                discount = (price * percentageDiscount) / 100;
                                 discountedPrice = price - discount;
                             } 
                             else
@@ -73,7 +70,8 @@ namespace ChoicesSuperMarket.Application.Orders.Commands.PlaceOrder
                                 
                                 while(units > 0)
                                 {
-                                    discount += freeUnit * item.Product.Price;
+                                    if(units > disUnit)
+                                        discount += freeUnit * item.Product.Price;
                                     discountedPrice += Math.Min(units, disUnit) * item.Product.Price;
                                     units -= freeUnit + disUnit;
                                 }
@@ -85,12 +83,12 @@ namespace ChoicesSuperMarket.Application.Orders.Commands.PlaceOrder
 
                             placedProductVMs.Add(new PlacedProductVM 
                             { 
-                                Units = item.Units,
+                                Quantity = item.Units,
                                 DiscountAmount = discount,
                                 DiscountedPrice = discountedPrice,
                                 Price = price,
                                 ProductName = product.Name,
-                                UnitOfMeasurement = product.UnitOfMeasurement
+                                UnitOfMeasurement = product.UnitOfMeasurement.GetDescription()
                             });
                         }
                     }
@@ -102,7 +100,8 @@ namespace ChoicesSuperMarket.Application.Orders.Commands.PlaceOrder
                         SavedAmount = totalDiscount,
                         TotalAmount = totalAfterDiscount,
                         Success = true,
-                        PlacedProducts = placedProductVMs
+                        PlacedProducts = placedProductVMs,
+                        CurrentCustomer = customer
                     };
 
                 }
@@ -115,7 +114,8 @@ namespace ChoicesSuperMarket.Application.Orders.Commands.PlaceOrder
                         SavedAmount = 0,
                         TotalAmount = 0,
                         Success = false,
-                        PlacedProducts = null
+                        PlacedProducts = null,
+                        CurrentCustomer = null
                     };
                 }
             }

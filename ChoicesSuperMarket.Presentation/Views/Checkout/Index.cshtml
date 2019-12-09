@@ -1,0 +1,46 @@
+﻿@model ChoicesSuperMarket.Application.Orders.Commands.PlaceOrder.PlaceOrderResponse
+@using System.Globalization
+@{
+    ViewData["Title"] = "Checkout Page";
+    ViewData["User"] = Model.CurrentCustomer.Name;
+}
+
+<h1>Checkout</h1>
+
+<div class="row">
+    <table class="table table-hover table-borderless col-8" style="margin: auto">
+        <thead>
+            <tr class="row">
+                <th class="col-8">Item</th>
+                <th class="col-2">Quantity</th>
+                <th class="col-2">Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                decimal totalamount = decimal.Parse(Model.TotalAmount.ToString(), CultureInfo.InvariantCulture);
+                decimal savedAmount = decimal.Parse(Model.SavedAmount.ToString(), CultureInfo.InvariantCulture);
+                CultureInfo hindi = new CultureInfo("hi-IN");
+            }
+            @foreach (var product in Model.PlacedProducts)
+            {
+                <tr class="row">
+                    <td class="col-8"><p>@product.ProductName</p></td>
+                    <td class="col-2"><p>@product.Quantity @product.UnitOfMeasurement</p></td>
+                    <td class="col-2"><p>@string.Format(hindi, "{0:c}", decimal.Parse(product.Price.ToString(), CultureInfo.InvariantCulture))</p></td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr class="row">
+                <td><b>Total Amount: </b>@string.Format(hindi, "{0:c}", totalamount)</td>
+            </tr>
+            <tr class="row">
+                <td><b>Saved Amount: </b>@string.Format(hindi, "{0:c}", savedAmount)</td>
+            </tr>
+        </tfoot>
+    </table>
+    <div class="complete-process">
+        <button class="btn btn-lg btn-outline-success" onclick="window.location = '@Url.Action("Complete", "Checkout", new { userId = Model.CurrentCustomer.Id })'">Complete Order</button>
+    </div>
+</div>

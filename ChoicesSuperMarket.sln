@@ -3,15 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29424.173
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChoicesSuperMarket.UI", "ChoicesSuperMarket.UI\ChoicesSuperMarket.UI.csproj", "{DEFFC05F-B856-4CF8-84E9-5471E7B5A043}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChoicesSuperMarket.Domain", "ChoicesSuperMarket.Domain\ChoicesSuperMarket.Domain.csproj", "{F0D70670-A03A-4EE1-A6DE-1DBBFB27324F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChoicesSuperMarket.Domain", "ChoicesSuperMarket.Domain\ChoicesSuperMarket.Domain.csproj", "{F0D70670-A03A-4EE1-A6DE-1DBBFB27324F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChoicesSuperMarket.Application", "ChoicesSuperMarket.Application\ChoicesSuperMarket.Application.csproj", "{DAF53319-05E5-4902-8BF4-115812385387}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChoicesSuperMarket.Application", "ChoicesSuperMarket.Application\ChoicesSuperMarket.Application.csproj", "{DAF53319-05E5-4902-8BF4-115812385387}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChoicesSuperMarket.Infrastructure", "ChoicesSuperMarket.Infrastructure\ChoicesSuperMarket.Infrastructure.csproj", "{DBAA2947-AF62-4968-905A-F6740EC0AFC0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChoicesSuperMarket.Infrastructure", "ChoicesSuperMarket.Infrastructure\ChoicesSuperMarket.Infrastructure.csproj", "{DBAA2947-AF62-4968-905A-F6740EC0AFC0}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChoicesSuperMarket.Tests", "ChoicesSuperMarket.Tests\ChoicesSuperMarket.Tests.csproj", "{F0C80465-C51B-4EBC-B202-BDFD91D4240E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChoicesSuperMarket.Presentation", "ChoicesSuperMarket.Presentation\ChoicesSuperMarket.Presentation.csproj", "{059F6D43-D486-47A9-B374-4DFE7F3C33F8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,10 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{DEFFC05F-B856-4CF8-84E9-5471E7B5A043}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DEFFC05F-B856-4CF8-84E9-5471E7B5A043}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DEFFC05F-B856-4CF8-84E9-5471E7B5A043}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DEFFC05F-B856-4CF8-84E9-5471E7B5A043}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F0D70670-A03A-4EE1-A6DE-1DBBFB27324F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F0D70670-A03A-4EE1-A6DE-1DBBFB27324F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F0D70670-A03A-4EE1-A6DE-1DBBFB27324F}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -35,10 +29,10 @@ Global
 		{DBAA2947-AF62-4968-905A-F6740EC0AFC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DBAA2947-AF62-4968-905A-F6740EC0AFC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DBAA2947-AF62-4968-905A-F6740EC0AFC0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F0C80465-C51B-4EBC-B202-BDFD91D4240E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F0C80465-C51B-4EBC-B202-BDFD91D4240E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F0C80465-C51B-4EBC-B202-BDFD91D4240E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F0C80465-C51B-4EBC-B202-BDFD91D4240E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{059F6D43-D486-47A9-B374-4DFE7F3C33F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{059F6D43-D486-47A9-B374-4DFE7F3C33F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{059F6D43-D486-47A9-B374-4DFE7F3C33F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{059F6D43-D486-47A9-B374-4DFE7F3C33F8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

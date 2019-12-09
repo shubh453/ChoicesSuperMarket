@@ -13,11 +13,7 @@ namespace ChoicesSuperMarket.Application.Orders.Commands.CancelOrder
     public class CancelOrderCommand : IRequest<CancelOrderResponse>
     {
         public int UserId { get; set; }
-        public CancelOrderCommand(int userId)
-        {
-            UserId = userId;
-        }
-
+       
         public class CancelOrderCommandHandler : IRequestHandler<CancelOrderCommand, CancelOrderResponse>
         {
             private readonly IAppDbContext context;
@@ -33,7 +29,7 @@ namespace ChoicesSuperMarket.Application.Orders.Commands.CancelOrder
                 {
                     var ongoingOrder = await context.Orders.Where(o => o.IsActive && o.BuyerId == request.UserId).FirstOrDefaultAsync();
 
-                    if(ongoingOrder == null)
+                    if(ongoingOrder != null)
                     {
                         ongoingOrder.MarkInactive();
                         await context.SaveChangesAsync(cancellationToken);

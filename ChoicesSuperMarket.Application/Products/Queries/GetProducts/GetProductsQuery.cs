@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using ChoicesSuperMarket.Application.Common.Behaviour;
 using ChoicesSuperMarket.Application.Interfaces;
 using ChoicesSuperMarket.Domain.Entities;
 using MediatR;
@@ -53,7 +54,7 @@ namespace ChoicesSuperMarket.Application.Products.Queries.GetProducts
 
                     if (products == null)
                     {
-                        return new GetProductResponse { Message = $"Product not found. Total Count: 0", Products = null, Success = true,CurrentCustomer = user };
+                        return new GetProductResponse { Message = $"Product not found. Total Count: 0", ProductList = null, Success = true,CurrentCustomer = user };
                     }
 
                     var productVM = new List<ProductVM>();
@@ -73,13 +74,14 @@ namespace ChoicesSuperMarket.Application.Products.Queries.GetProducts
                             Name = product.Name,
                             PictureUri = product.PictureUri,
                             Price = product.Price,
-                            Units = units
+                            Units = units,
+                            UnitOfMeasurement = product.UnitOfMeasurement.GetDescription()
                         });
                     }
                     if(ongoingOrder != null)
-                        return new GetProductResponse { Message = $"There is already an order in progress. Please Continue.", Products = productVM, Success = true, CurrentCustomer = user };
+                        return new GetProductResponse { Message = $"There is already an order in progress. Please Continue.", ProductList = productVM, Success = true, CurrentCustomer = user };
 
-                    return new GetProductResponse { Message = $"Products found. Total Count: {products.Count}", Products = productVM, Success = true, CurrentCustomer = user };
+                    return new GetProductResponse { Message = $"Products found. Total Count: {products.Count}", ProductList = productVM, Success = true, CurrentCustomer = user };
                 }
                 catch (Exception ex)
                 {
